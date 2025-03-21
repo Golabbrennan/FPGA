@@ -19,7 +19,7 @@ module memory
 
    always @(posedge clk)
      if( writeEn )
-       mem[writeAddr] <= writeData ; // probably should be non-blocking
+       mem[writeAddr] <= writeData ;
    
 endmodule 
     
