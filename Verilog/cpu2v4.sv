@@ -14,30 +14,18 @@ module cpu2v4
   input  logic 		        rst
 );
 
-  //
-  // Include the signal declaration file (sig_declare.inc) here
-  // Be sure to LOOK at that file, it is important!
-  // if you do not have a signal declare file, then execute the perl script
-  // mkurom.  (i.e. ./mkurom)   This perl script will create sig_declare,
-  // id.sv, and ustore.sv as specified by your microcode file.
-  //
+
   `include "sig_declare.inc";
 
 
-  //
   // declare buses for your MAR, PC, IR, Z, and other data path stuff
-  //
-        logic [Wwid-1:0] MAR, PC, IR, DBus, Z, aluout, selectedRegister;
+	logic [Wwid-1:0] MAR, PC, IR, DBus, Z, aluout, selectedRegister;
    
 
   // declare your UIP, and other sequencing engine stuff
         logic [ua-1:0] UIP;
         logic [ua-1:0] ID;
 
-
- // halt and retire are outputs from this module, BUT, they
- // are specified from the microcode.  Take care of that here.
- //
 
    assign ohalt     = halt;
    assign oretire   = retire;
@@ -48,24 +36,11 @@ module cpu2v4
    
    
 
-// 
 //  microstore and your instruction decoder
-// 
-
 ID__  #(ua)   my_id     ( .IR (IR  ),    .Uip( ID  ) );
 US__          my_ustore ( .Uip( UIP   ), .sig( sig   ) );
    
-  
-   
-//
-// Sequencing engine hardware:
-//
-// invoke your micro instruction pointer register (UIP) here
-// its width is ua bits
-// Then add the rest of the microcode sequencing engine 
-//
-//
- 
+
   logic [ua] 	       next;
 
    dff #(ua) mipreg(.d(next), .clk(clk), .rst(rst), .en(1'b1), .q(UIP));
@@ -144,12 +119,6 @@ US__          my_ustore ( .Uip( UIP   ), .sig( sig   ) );
 	default : DBus = PC;
       endcase
    end
-   
-
-// invoke your MAR, PC, IR and the rest of the data path 
-// There should be a bunch of registers.  There should be a MUX
-// that drives the bus.  You should connect up to the signals in
-// the port list that go to memory
  
 
 
