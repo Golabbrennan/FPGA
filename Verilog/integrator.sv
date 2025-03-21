@@ -1,5 +1,5 @@
 
-//integrator.vp
+//integrator
 
 module integrator
 #(
