@@ -1,12 +1,4 @@
-/*
- * lifo buffer
- *  if push and pop happen at the same time, let pop happen before push.
- *  that is, overwrite the top of stack
- *
- * popData should always reflect the value at top of stack,
- * irrespective of the push/pop control lines.
- *
- */
+
 module lifo 
   #( 
      parameter int bW ,
